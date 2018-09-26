@@ -1,9 +1,11 @@
 import ChipComponent from '../../Chip/ChipComponent';
+import BlackJack from '../BlackJack';
 
 export default class ActionPanel {
 
     private actionPanelNode: cc.Node;
-    private _betList: cc.Node;
+    private _betList: cc.PageView;
+    private _chipPrefab: cc.Prefab;
 
     private dealBtn: cc.Node;
     private hitBtn: cc.Node;
@@ -13,7 +15,9 @@ export default class ActionPanel {
 
     constructor(root: cc.Node) {
         this.actionPanelNode = root.getChildByName('ActionPanel');
-        this._betList = this.actionPanelNode.getChildByName('BetList');
+        this._betList = this.actionPanelNode.getChildByName('BetList2').getComponent(cc.PageView);
+
+        this._chipPrefab = root.getComponent(BlackJack).chipPrefab;
     }
 
     public init(): void {
@@ -59,14 +63,27 @@ export default class ActionPanel {
 
     private initBetList(): void {
         const bets: Array<number> = [1, 2, 5, 10, 25, 50, 100, 250, 500, 1000];
-        const chip: ChipComponent = this.actionPanelNode.getComponent(ChipComponent);
+        // const chip: ChipComponent = this.actionPanelNode.getComponent(ChipComponent);
+        // bets.forEach((bet, index) => {
+        //     const newBtn = cc.instantiate(this._chipPrefab);
+        //     newBtn.getComponent(ChipComponent).value = bet;
+        //     newBtn.y = -(newBtn.height / 2 + newBtn.height * index);
+        //     this._betList.getChildByName('View').getChildByName('Content').height = (bets.length) * newBtn.height;
+        //     newBtn.getChildByName('Label').getComponent(cc.Label).string = bet.toString();
+        //     this._betList.getChildByName('View').getChildByName('Content').addChild(newBtn);
+
+        //     newBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
+        //         console.log((event.currentTarget as cc.Node).getComponent(ChipComponent).value);
+        //     });
+        // });
+
         bets.forEach((bet, index) => {
-            const newBtn = cc.instantiate(chip.chipPrefab);
-            chip.value = bet;
-            newBtn.y = -(newBtn.height / 2 + newBtn.height * index);
-            this._betList.getChildByName('View').getChildByName('Content').height = (bets.length) * newBtn.height;
+            const newBtn = cc.instantiate(this._chipPrefab);
+            newBtn.getComponent(ChipComponent).value = bet;
+            // newBtn.y = -(newBtn.height / 2 + newBtn.height * index);
+            // this._betList.getChildByName('View').getChildByName('Content').height = (bets.length) * newBtn.height;
             newBtn.getChildByName('Label').getComponent(cc.Label).string = bet.toString();
-            this._betList.getChildByName('View').getChildByName('Content').addChild(newBtn);
+            this._betList.addPage(newBtn);
 
             newBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
                 console.log((event.currentTarget as cc.Node).getComponent(ChipComponent).value);

@@ -13,6 +13,9 @@ export default class BlackJack extends cc.Component {
     @property(cc.Prefab)
     public cardPrefab: cc.Prefab = null;
 
+    @property(cc.Prefab)
+    public chipPrefab: cc.Prefab = null;
+
     private fs: FakeServer;
     private actionPanel: ActionPanel;
     private player: Player;

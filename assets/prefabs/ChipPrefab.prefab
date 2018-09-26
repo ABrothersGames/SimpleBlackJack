@@ -77,7 +77,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 308,
+    "_localZOrder": 29,
     "groupIndex": 0,
     "_id": ""
   },
@@ -167,7 +167,7 @@
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
-    "_id": "fcto3hifBE2o0aSYXK8Tce"
+    "_id": "8aOjnZNgREmJuqWu4kbh+X"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -189,7 +189,7 @@
     },
     "_enabled": true,
     "chipPrefab": null,
-    "_id": "79+JYIqMpDeLEFgw/h9UDe"
+    "_id": "17r9cZpQpFW5MV00S8Vg4D"
   },
   {
     "__type__": "cc.Sprite",
@@ -217,7 +217,7 @@
     "_isTrimmedMode": true,
     "_state": 0,
     "_atlas": null,
-    "_id": "17AbxMJ5pONLE1MAa6kN7x"
+    "_id": "abNniE9/dJAYbfGO9ctXmA"
   },
   {
     "__type__": "cc.Button",
@@ -270,7 +270,7 @@
     "_N$target": {
       "__id__": 1
     },
-    "_id": "e9DHonmr5H6pU6ICGu2Skg"
+    "_id": "c1LayrWQ9LW4NdDnEjizNt"
   },
   {
     "__type__": "cc.PrefabInfo",
