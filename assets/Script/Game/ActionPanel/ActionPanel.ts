@@ -46,7 +46,7 @@ export default class ActionPanel {
         this.doubleBtn.active = true;
     }
 
-    public continuePlay(): void {
+    public doubleDisable(): void {
         this.doubleBtn.active = false;
     }
 

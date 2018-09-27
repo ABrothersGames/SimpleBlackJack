@@ -112,18 +112,30 @@ export default class FakeServer {
     private dillerHands: Array<Hand>;
     private mode: string;
 
+    private userBalance: number = 5500;
+
+    // need create other server for work with DB and data
+    public startGame(userId): any {
+        return {
+            userName: 'x6iBeHbx',
+            balance: this.userBalance
+        };
+    }
+
     // temp retrun random from crda array but in future need create sort 3 cards deck and when
     public getRandomCard(): any {
         // return this.cardDeck[4];
         return this.cardDeck[Math.round((Math.random()) * (this.cardDeck.length - 1))];
     }
 
-    public firstHandOver(): any {
+    public firstHandOver(bet: number): any {
         const userCards = new Array<any>();
         const dillerCards = new Array<any>();
 
         this.userHands = new Array<Hand>();
         this.dillerHands = new Array<Hand>();
+
+        this.userBalance -= bet;
 
         userCards.push(this.cardDeck[12]);
         userCards.push(this.cardDeck[12]);
@@ -161,6 +173,7 @@ export default class FakeServer {
         //     cc.log(hand.value);
         // });
         cc.log(this.userHands[handId]);
+
         this.userHands[handId].cards.push(this.getRandomCard());
         this.userHands[handId].value = this.getWinValue(this.userHands[handId].cards);
         this.userHands[handId].state = this.checkBust(this.userHands[handId].cards) ? 'lose' : 'play';
@@ -301,7 +314,8 @@ export default class FakeServer {
             diller: {
                 hands: this.dillerHands,
             },
-            mode: this.mode
+            mode: this.mode,
+            balance: this.userBalance
         };
 
         return res;

@@ -27,9 +27,13 @@ export default class BlackJack extends cc.Component {
 
     public onLoad() {
         this.fs = new FakeServer();
+
+        // TODO: temp place for connect user need move to register this scene logic
+        const userInfo = this.fs.startGame('userId');
+
         this.actionPanel = new ActionPanel(this.node);
         this._topPanel = new TopPanel(this.node);
-        this._topPanel.setBalance(4000);
+        this._topPanel.setBalance(userInfo.balance);
         this.actionPanel.init();
 
         this.player = new Player(this.node);
@@ -52,8 +56,6 @@ export default class BlackJack extends cc.Component {
 
     private deal(event): void {
 
-        this._topPanel.decreaseBalance(event.bet);
-
         this.player.clear();
         this.player.clearHeands();
         this.player.handMarker = 0;
@@ -61,7 +63,8 @@ export default class BlackJack extends cc.Component {
         this.diller.clearHeands();
 
         // fake
-        const response = this.fs.firstHandOver();
+        const response = this.fs.firstHandOver(event.bet);
+        this._topPanel.setBalance(response.balance);
 
         response.user.hands.forEach((hand, index) => {
             const playerHand = new Hand();
@@ -115,10 +118,11 @@ export default class BlackJack extends cc.Component {
         }
     }
 
-    private hit(): void {
+    private hit(event): void {
 
         const response = this.fs.hit(this.player.handMarker);
         this.actionPanel.splitDisable();
+        this.actionPanel.doubleDisable();
         // response.user.hands.forEach((hand, index) => {
         //     const playerHand = this.player.getHand(index);
         //     cc.log(hand.cards);
