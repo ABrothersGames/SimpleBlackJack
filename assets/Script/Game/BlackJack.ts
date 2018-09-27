@@ -4,6 +4,7 @@ import ActionPanel from './ActionPanel/ActionPanel';
 import Diller from './Diller';
 import Hand from './Hand';
 import Player from './Player';
+import TopPanel from './TopPanel/TopPanel';
 
 const {ccclass, property} = cc._decorator;
 
@@ -18,6 +19,7 @@ export default class BlackJack extends cc.Component {
 
     private fs: FakeServer;
     private actionPanel: ActionPanel;
+    private _topPanel: TopPanel;
     private player: Player;
     private diller: Diller;
 
@@ -26,6 +28,8 @@ export default class BlackJack extends cc.Component {
     public onLoad() {
         this.fs = new FakeServer();
         this.actionPanel = new ActionPanel(this.node);
+        this._topPanel = new TopPanel(this.node);
+        this._topPanel.setBalance(4000);
         this.actionPanel.init();
 
         this.player = new Player(this.node);
@@ -46,8 +50,9 @@ export default class BlackJack extends cc.Component {
         this.node.getChildByName('ActionPanel').on('split', this.split.bind(this));
     }
 
-    private deal(): void {
-        const tempBet = 1;
+    private deal(event): void {
+
+        this._topPanel.decreaseBalance(event.bet);
 
         this.player.clear();
         this.player.clearHeands();
